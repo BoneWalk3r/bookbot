@@ -1,7 +1,34 @@
-from stats import get_book_text, count_words, count_characters
+from stats import get_book_text, count_words, count_characters, dict_to_sorted_dicts_list, dicts_list_to_string
+
+def generate_report(path_to_book="./books/frankenstein.txt"):
+
+    book = get_book_text(path_to_book)
+    key_name = "key"
+    value_name = "value"
+
+    word_count = count_words(book)
+    charactor_count_string = dicts_list_to_string(dict_to_sorted_dicts_list(count_characters(book), key_name, value_name))
+
+    report = f""" 
+============ BOOKBOT ============
+Analyzing book found at {path_to_book}...
+---------- Total Words ----------
+{word_count}
+-------- Character Count --------
+{charactor_count_string}
+============= END ===============
+"""
+    return report
+
 
 def main():
-    print(count_words(get_book_text("./books/frankenstein.txt")))
-    print(count_characters(get_book_text("./books/frankenstein.txt")))
+    response = input("Please provide the path to the book you want analyzed. ['x' or 'X' to abort]\n")
+    if response.lower() == "x":
+        print("Program aborted.")
+    elif response == '':
+        print("Empty input detected, assuming default path.")
+        print(generate_report())
+    else:
+        print(generate_report(response))
 
 main()
