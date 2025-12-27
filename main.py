@@ -1,4 +1,5 @@
 from stats import get_book_text, count_words, count_characters, dict_to_sorted_dicts_list, dicts_list_to_string
+import sys
 
 def generate_report(path_to_book="./books/frankenstein.txt"):
 
@@ -30,5 +31,17 @@ def main():
         print(generate_report())
     else:
         print(generate_report(response))
-
 main()
+
+# temp_main is just for completeing the course, I decided to go a different way with input().
+def temp_main():
+    if len(sys.argv) == 2:
+        print(generate_report(sys.argv[1]))
+    elif len(sys.argv) > 2:
+        print("Too many args!")
+        print("Correct Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        print("Missing path.")
+        print("Correct Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
